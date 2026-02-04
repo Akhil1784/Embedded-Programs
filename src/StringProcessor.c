@@ -1,4 +1,4 @@
-//**************************** TRENSER EMBEDDED ******************************
+//**************************** STRING EMBEDDED ********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -14,8 +14,12 @@
 #include <ctype.h>
 #include "StringProcessor.h"
 
+//***************************** Global Constants ******************************
+
 //***************************** Local Constants *******************************
 #define ASCII_CASE_OFFSET  32U
+
+//***************************** Global Variables ******************************
 
 //******************************.FUNCTION_HEADER.******************************
 //Purpose : Converts all lowercase alphabetic characters to uppercase.
@@ -24,7 +28,7 @@
 //Outputs : pucString content is modified in place.
 //Note    : Uses ASCII arithmetic logic (Subtracting 32).
 //*****************************************************************************
-void ConvertToUpper(uint8* pucString, uint32 ulLength)
+void StringProcessorConvertToUpper(uint8* pucString, uint32 ulLength)
 {
     if (NULL != pucString)
     {
@@ -45,7 +49,7 @@ void ConvertToUpper(uint8* pucString, uint32 ulLength)
 //Outputs : pucString content is modified in place.
 //Note    : Uses ASCII arithmetic logic (Adding 32).
 //*****************************************************************************
-void ConvertToLower(uint8* pucString, uint32 ulLength)
+void StringProcessorConvertToLower(uint8* pucString, uint32 ulLength)
 {
     if (NULL != pucString)
     {
