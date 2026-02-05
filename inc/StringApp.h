@@ -24,7 +24,7 @@
 //***************************** Type Definitions ******************************
 
 //**************************** Forward Declarations ***************************
-void StringAppProcessStatic(STRING_MANAGER* pstManager, const char* pcInput);
-void StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput);
+bool StringAppProcessStatic(STRING_MANAGER* pstManager, const char* pcInput);
+bool StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput);
 
 #endif // EOF

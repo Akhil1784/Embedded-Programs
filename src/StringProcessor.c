@@ -31,7 +31,7 @@
 bool StringProcessorConvertToUpper(uint8* pucString, uint16 usLength)
 {
     bool bStatus = FALSE;
-    uint16 usIdx = 0; /* Declared at start of function */
+    uint16 usIdx = 0; 
 
     if (NULL != pucString)
     {
@@ -73,5 +73,4 @@ bool StringProcessorConvertToLower(uint8* pucString, uint16 usLength)
     }
 
     return bStatus;
-}
-// EOF
+}// EOF

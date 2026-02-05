@@ -31,12 +31,25 @@ int main(void)
 {
     STRING_MANAGER stManager;
     const char* pInput = "Trenser String Test";
-
+    bool bStaticStatus  = FALSE;
+    bool bDynamicStatus = FALSE;
+    int iReturnStatus   = 0;
     stManager.ulStringLength = (uint32)strlen(pInput);
     stManager.pucDynamicBuffer = NULL;
+    bStaticStatus  = StringAppProcessStatic(&stManager, pInput);
+    bDynamicStatus = StringAppProcessDynamic(&stManager, pInput);
+    
+    if ((TRUE != bStaticStatus) || (TRUE != bDynamicStatus))
+    {
+        printf("Application finished with processing errors.\n");
+        iReturnStatus = 1;
+    }
+    else
+    {
+        printf("Application finished successfully.\n");
+        iReturnStatus = 0;
+    }
 
-    StringAppProcessStatic(&stManager, pInput);
-    StringAppProcessDynamic(&stManager, pInput);
-
-    return 0;
-}//EOF
+    return iReturnStatus;
+}
+// EOF

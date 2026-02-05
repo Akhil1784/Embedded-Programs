@@ -24,41 +24,47 @@
 // Purpose : Handles string processing using the internal static buffer.
 // Inputs  : pstManager - Pointer to the STRING_MANAGER structure.
 //           pcInput    - Pointer to the source constant string.
-// Outputs : None.
+// Outputs : Returns TRUE if processed successfully, FALSE otherwise.
 // Note    : Validates buffer size against MAX_STATIC_SIZE before copy.
 //*****************************************************************************
-void StringAppProcessStatic(STRING_MANAGER* pstManager, const char* pcInput)
+bool StringAppProcessStatic(STRING_MANAGER* pstManager, const char* pcInput)
 {
-    bool bSuccess = FALSE;
+    bool bStatus = FALSE;
 
     if ((NULL != pstManager) && (NULL != pcInput) && 
         (pstManager->ulStringLength < MAX_STATIC_SIZE))
     {
         memcpy(pstManager->pucStaticBuffer, pcInput, pstManager->ulStringLength + 1);
-        bSuccess = StringProcessorConvertToUpper(pstManager->pucStaticBuffer, 
+        bStatus = StringProcessorConvertToUpper(pstManager->pucStaticBuffer, 
                                            (uint16)pstManager->ulStringLength);
                                   
-        if (TRUE == bSuccess)
+        if (TRUE == bStatus)
         {
             printf("Static Upper : %s\n", pstManager->pucStaticBuffer);
         }
         else
         {
-            printf("Error: Static string conversion failed.\n");
+            printf("Error: Static string conversion logic failed.\n");
         }
     }
+    else
+    {
+        printf("Error: Invalid static buffer parameters or size overflow.\n");
+    }
+
+    return bStatus;
 }
 
 //******************************.FUNCTION_HEADER.******************************
 // Purpose : Handles string processing using dynamic memory allocation.
 // Inputs  : pstManager - Pointer to the STRING_MANAGER structure.
 //           pcInput    - Pointer to the source constant string.
-// Outputs : None.
+// Outputs : Returns TRUE if processed successfully, FALSE otherwise.
 // Note    : Responsibly allocates and frees memory; checks conversion status.
 //*****************************************************************************
-void StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput)
+bool StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput)
 {
-    bool bSuccess = FALSE;
+    bool bStatus = FALSE;
 
     if ((NULL != pstManager) && (NULL != pcInput))
     {
@@ -68,16 +74,16 @@ void StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput)
         if (NULL != pstManager->pucDynamicBuffer)
         {
             memcpy(pstManager->pucDynamicBuffer, pcInput, pstManager->ulStringLength + 1);
-            bSuccess = StringProcessorConvertToLower(pstManager->pucDynamicBuffer,
+            bStatus = StringProcessorConvertToLower(pstManager->pucDynamicBuffer,
                                            (uint16)pstManager->ulStringLength);
             
-            if (TRUE == bSuccess)
+            if (TRUE == bStatus)
             {
                 printf("Dynamic Lower: %s\n", pstManager->pucDynamicBuffer);
             }
             else
             {
-                printf("Error: Dynamic string conversion failed.\n");
+                printf("Error: Dynamic string conversion logic failed.\n");
             }
             free(pstManager->pucDynamicBuffer);
             pstManager->pucDynamicBuffer = NULL;
@@ -87,5 +93,6 @@ void StringAppProcessDynamic(STRING_MANAGER* pstManager, const char* pcInput)
             printf("Error: Memory allocation failed.\n");
         }
     }
-}
-// EOF
+
+    return bStatus;
+}// EOF
