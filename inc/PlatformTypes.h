@@ -1,4 +1,4 @@
-//**************************** STRING EMBEDDED ********************************
+//**************************** StringProcess **********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -28,7 +28,8 @@ typedef unsigned long  uint32;
 typedef signed char    int8;
 typedef signed short   int16;
 typedef signed long    int32;
+typedef unsigned char  bool;
 
 //**************************** Forward Declarations ***************************
 
-#endif // EOF
+#endif /* PLATFORM_TYPES_H */

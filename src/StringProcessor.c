@@ -1,4 +1,4 @@
-//**************************** STRING EMBEDDED ********************************
+//**************************** StringProcess **********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -22,44 +22,56 @@
 //***************************** Global Variables ******************************
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Converts all lowercase alphabetic characters to uppercase.
-//Inputs  : pucString - Pointer to the character buffer to be modified.
-//          ulLength  - The number of characters to process in the buffer.
-//Outputs : pucString content is modified in place.
-//Note    : Uses ASCII arithmetic logic (Subtracting 32).
+// Purpose : Converts all lowercase alphabetic characters to uppercase.
+// Inputs  : pucString - Pointer to the character buffer to be modified.
+//           usLength  - The number of characters to process (uint16).
+// Outputs : Returns TRUE if processing was successful, FALSE if pucString is NULL.
+// Note    : Uses ASCII arithmetic logic (Subtracting 32).
 //*****************************************************************************
-void StringProcessorConvertToUpper(uint8* pucString, uint32 ulLength)
+bool StringProcessorConvertToUpper(uint8* pucString, uint16 usLength)
 {
+    bool bStatus = FALSE;
+    uint16 usIdx = 0; /* Declared at start of function */
+
     if (NULL != pucString)
     {
-        for (uint32 ulIdx = 0; ulIdx < ulLength; ulIdx++)
+        for (usIdx = 0; usIdx < usLength; usIdx++)
         {
-            if ((pucString[ulIdx] >= 'a') && (pucString[ulIdx] <= 'z'))
+            if ((pucString[usIdx] >= 'a') && (pucString[usIdx] <= 'z'))
             {
-                pucString[ulIdx] = pucString[ulIdx] - ASCII_CASE_OFFSET;
+                pucString[usIdx] = pucString[usIdx] - (uint8)ASCII_CASE_OFFSET;
             }
         }
+        bStatus = TRUE;
     }
+
+    return bStatus;
 }
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Converts all uppercase alphabetic characters to lowercase.
-//Inputs  : pucString - Pointer to the character buffer to be modified.
-//          ulLength  - The number of characters to process in the buffer.
-//Outputs : pucString content is modified in place.
-//Note    : Uses ASCII arithmetic logic (Adding 32).
+// Purpose : Converts all uppercase alphabetic characters to lowercase.
+// Inputs  : pucString - Pointer to the character buffer to be modified.
+//           usLength  - The number of characters to process (uint16).
+// Outputs : Returns TRUE if processing was successful, FALSE if pucString is NULL.
+// Note    : Uses ASCII arithmetic logic (Adding 32).
 //*****************************************************************************
-void StringProcessorConvertToLower(uint8* pucString, uint32 ulLength)
+bool StringProcessorConvertToLower(uint8* pucString, uint16 usLength)
 {
+    bool bStatus = FALSE;
+    uint16 usIdx = 0;
+
     if (NULL != pucString)
     {
-        for (uint32 ulIdx = 0; ulIdx < ulLength; ulIdx++)
+        for (usIdx = 0; usIdx < usLength; usIdx++)
         {
-            if ((pucString[ulIdx] >= 'A') && (pucString[ulIdx] <= 'Z'))
+            if ((pucString[usIdx] >= 'A') && (pucString[usIdx] <= 'Z'))
             {
-                pucString[ulIdx] = pucString[ulIdx] + ASCII_CASE_OFFSET;
+                pucString[usIdx] = pucString[usIdx] + (uint8)ASCII_CASE_OFFSET;
             }
         }
+        bStatus = TRUE;
     }
+
+    return bStatus;
 }
 // EOF

@@ -1,4 +1,4 @@
-//**************************** STRING EMBEDDED ********************************
+//**************************** StringProcess **********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "StringApp.h"
 #include "StringProcessor.h"
 
 //***************************** Global Constants ******************************
@@ -30,30 +31,12 @@ int main(void)
 {
     STRING_MANAGER stManager;
     const char* pInput = "Trenser String Test";
+
     stManager.ulStringLength = (uint32)strlen(pInput);
+    stManager.pucDynamicBuffer = NULL;
 
-    /* Static Buffer Logic */
-    if (stManager.ulStringLength < MAX_STATIC_SIZE)
-    {
-        memcpy(stManager.pucStaticBuffer, pInput, stManager.ulStringLength + 1);
-        StringProcessorConvertToUpper(stManager.pucStaticBuffer, 
-                                                     stManager.ulStringLength);   
-        printf("Static Upper: %s\n", stManager.pucStaticBuffer);
-    }
-
-    /* Dynamic Buffer Logic */
-    stManager.pucDynamicBuffer = (uint8*)malloc((stManager.ulStringLength + 1)
-                                 * sizeof(uint8));
-
-    if (NULL != stManager.pucDynamicBuffer)
-    {
-        memcpy(stManager.pucDynamicBuffer, pInput, stManager.ulStringLength + 1);   
-        StringProcessorConvertToLower(stManager.pucDynamicBuffer,
-                                                     stManager.ulStringLength);
-        printf("Dynamic Lower: %s\n", stManager.pucDynamicBuffer);
-        free(stManager.pucDynamicBuffer);
-        stManager.pucDynamicBuffer = NULL;
-    }
+    StringAppProcessStatic(&stManager, pInput);
+    StringAppProcessDynamic(&stManager, pInput);
 
     return 0;
 }//EOF

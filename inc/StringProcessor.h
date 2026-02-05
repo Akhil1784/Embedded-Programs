@@ -1,4 +1,4 @@
-//**************************** STRING EMBEDDED ********************************
+//**************************** StringProcess **********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -15,6 +15,7 @@
 #include "PlatformTypes.h"
 
 //***************************** Global Constants ******************************
+#define MAX_STATIC_SIZE 512
 
 //***************************** Local Constants *******************************
 
@@ -23,16 +24,13 @@
 //***************************** Type Definitions ******************************
 typedef struct _STRING_MANAGER_
 {
-    uint8  pucStaticBuffer[512];
+    uint8  pucStaticBuffer[MAX_STATIC_SIZE];
     uint8* pucDynamicBuffer;
     uint32 ulStringLength;
 } STRING_MANAGER;
 
-//***************************** Global Constants ******************************
-#define MAX_STATIC_SIZE 512
-
 //**************************** Forward Declarations ***************************
-void StringProcessorConvertToUpper(uint8* pucString, uint32 ulLength);
-void StringProcessorConvertToLower(uint8* pucString, uint32 ulLength);
+bool StringProcessorConvertToUpper(uint8* pucString, uint16 usLength);
+bool StringProcessorConvertToLower(uint8* pucString, uint16 usLength);
 
 #endif // EOF
