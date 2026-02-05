@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/embedded_app.dir/src/main.c.o CMakeFiles/embedded_app.dir/src/stringProcessor.c.o -o embedded_app 

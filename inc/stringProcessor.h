@@ -3,33 +3,36 @@
 //  All Rights Reserved
 //*****************************************************************************
 // 
-// Summary : Platform specific data type definitions.
+// Summary : String manipulation types and routine declarations.
 // Note    : Standardized for Trenser Coding Standard V1.0.
 // 
 //*****************************************************************************
 
-#ifndef PLATFORM_TYPES_H
-#define PLATFORM_TYPES_H
+#ifndef _STRING_PROCESSOR_H
+#define _STRING_PROCESSOR_H
 
 //******************************* Include Files *******************************
+#include "platformTypes.h"
 
 //***************************** Global Constants ******************************
-#define TRUE  1
-#define FALSE 0
+#define MAX_STATIC_SIZE 512
 
 //***************************** Local Constants *******************************
 
 //***************************** Global Variables ******************************
 
 //***************************** Type Definitions ******************************
-typedef unsigned char  uint8;
-typedef unsigned short uint16;
-typedef unsigned long  uint32;
-typedef signed char    int8;
-typedef signed short   int16;
-typedef signed long    int32;
-typedef unsigned char  bool;
+typedef struct _STRING_MANAGER_
+{
+    uint8  pucStaticBuffer[MAX_STATIC_SIZE];
+    uint8* pucDynamicBuffer;
+    uint32 ulStringLength;
+} STRING_MANAGER;
 
 //**************************** Forward Declarations ***************************
+bool StringProcessorConvertToUpper(uint8* pucString, uint16 usLength);
+bool StringProcessorConvertToLower(uint8* pucString, uint16 usLength);
 
-#endif /* PLATFORM_TYPES_H */
+#endif /* STRING_PROCESSOR_H */
+
+//******************************** End of File ********************************

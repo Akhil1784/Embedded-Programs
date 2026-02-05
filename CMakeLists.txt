@@ -30,9 +30,8 @@ include_directories(inc)
 #------------------------------------------------------------------------------
 # Define the final binary and its source dependencies
 add_executable(embedded_app 
-    src/Main.c
-    src/StringProcessor.c
-    src/StringApp.c
+    src/main.c
+    src/stringProcessor.c
 )
 
 #------------------------------------------------------------------------------
