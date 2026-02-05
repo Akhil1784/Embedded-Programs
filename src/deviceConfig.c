@@ -26,9 +26,11 @@ static uint8 ucIsInitialized = FALSE;
 //***************************** Type Definitions ******************************
 
 //******************************.FUNCTION_HEADER.******************************
-// Purpose : Returns the unique pointer to Singleton Device Config instance.
-// Inputs  : None.
-// Outputs : Pointer to the static DEVICE_CONFIG structure.
+// Purpose : Provides a global access point to the singleton configuration 
+//           instance and ensures it is initialized exactly once.
+// Inputs  : None
+// Outputs : Initialized internal static structure (stDeviceInstance).
+// Return  : DEVICE_CONFIG* - Pointer to the single persistent device instance.
 //*****************************************************************************
 DEVICE_CONFIG* DeviceConfig_GetInstance(void) 
 {

@@ -26,9 +26,10 @@ static uint8 ucIsInitialized = FALSE;
 //***************************** Type Definitions ******************************
 
 //******************************.FUNCTION_HEADER.******************************
-// Purpose : Main execution loop.
+// Purpose : Main execution loop to demonstrate Singleton behavior.
 // Inputs  : None.
-// Outputs : 0 on successful execution.
+// Outputs : Prints instance data and memory addresses to the console.
+// Return  : int - 0 on successful execution.
 //*****************************************************************************
 int main(void) 
 {
