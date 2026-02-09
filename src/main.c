@@ -36,7 +36,7 @@ int main(void)
 
     if (NULL != pstClk)
     {
-        pstClk->pstPort->stPins.ucDataPin = 1;
+        pstClk->pstPort->stPins.ucClkPin! = (1<<1);
         printf("Starting Clock Signal Simulation...\n");
 
         for (ucIdx = 0; ucIdx < 4; ucIdx++)
