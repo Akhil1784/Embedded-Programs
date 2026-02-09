@@ -3,36 +3,57 @@
 //  All Rights Reserved
 //*****************************************************************************
 // 
-// File    : platformTypes.h
-// Summary : Platform specific data type definitions.
+// File    : clockManager.h
+// Summary : Clock signal generation management and GPIO mapping.
 // Note    : Standardized for Trenser Coding Standard V1.0.
 // 
 //*****************************************************************************
 
-#ifndef PLATFORM_TYPES_H
-#define PLATFORM_TYPES_H
+#ifndef CLOCK_MANAGER_H
+#define CLOCK_MANAGER_H
 
 //******************************* Include Files *******************************
+#include "platformTypes.h"
 
 //***************************** Global Constants ******************************
-#define TRUE  1
-#define FALSE 0
 
 //***************************** Local Constants *******************************
 
 //***************************** Global Variables ******************************
 
 //***************************** Type Definitions ******************************
-typedef unsigned char  uint8;
-typedef unsigned short uint16;
-typedef unsigned long  uint32;
-typedef signed char    int8;
-typedef signed short   int16;
-typedef signed long    int32;
-typedef unsigned char  bool;
+
+typedef enum 
+{ 
+    CLK_OFF = 0, 
+    CLK_ON  = 1 
+} CLOCK_STATE;
+
+typedef union 
+{
+    struct 
+    {
+        uint8 ucClkPin  : 1; 
+        uint8 ucDataPin : 1; 
+        uint8 ucUnused  : 6; 
+    } stPins;
+    uint8 ucRawByte;
+} GPIO_REG;
+
+typedef struct 
+{
+    struct 
+    {
+        uint32      ulFrequency; 
+        CLOCK_STATE eState;      
+    } stConfig; 
+    
+    GPIO_REG *pstPort;           
+} CLOCK_MANAGER;
 
 //**************************** Forward Declarations ***************************
 
-#endif /* PLATFORM_TYPES_H */
+CLOCK_MANAGER* GetClockManager(void);
 
+#endif /* CLOCK_MANAGER_H */
 //******************************** End of File ********************************

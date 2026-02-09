@@ -3,55 +3,48 @@
 //  All Rights Reserved
 //*****************************************************************************
 // 
-// File     : main.c
-// Summary  : Entry point for the Clock Signal Simulation.
-// Note     : Demonstrates bit-field manipulation and singleton usage.
+// File     : clockManager.c
+// Summary  : Implementation of the Clock Manager singleton.
+// Note     : Adheres to Trenser Coding Standard V1.0.
 // 
 //*****************************************************************************
 
 //******************************* Include Files *******************************
-#include <stdio.h>
 #include "clockManager.h"
 
 //***************************** Global Constants ******************************
 
 //***************************** Local Constants *******************************
+#define DEFAULT_CLOCK_FREQUENCY    1000000
 
 //***************************** Global Variables ******************************
 
 //***************************** Local Variables *******************************
+static GPIO_REG s_stMockPort = { .ucRawByte = 0x00 };
 
 //***************************** Type Definitions ******************************
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Main entry point for the clock simulation application.
+//Purpose : Provides a global point of access to the Clock Manager instance.
 //Inputs  : None
-//Outputs : Updates the GPIO register pins and the clock manager state.
-//Return  : int - 0 on successful execution.
+//Outputs : Initializes the static clock manager instance on first call.
+//Return  : CLOCK_MANAGER* - Pointer to the persistent Clock Manager.
 //*****************************************************************************
-int main(void)
+CLOCK_MANAGER* GetClockManager(void)
 {
-    CLOCK_MANAGER* pstClk = GetClockManager();
-    uint8          ucIdx  = 0;
+    static CLOCK_MANAGER s_stInstance;
+    static uint8         s_ucIsInitialized = 0;
 
-    if (NULL != pstClk)
+    if (0 == s_ucIsInitialized)
     {
-        pstClk->pstPort->stPins.ucDataPin = 1;
-        printf("Starting Clock Signal Simulation...\n");
-
-        for (ucIdx = 0; ucIdx < 4; ucIdx++)
-        {
-            pstClk->pstPort->stPins.ucClkPin = 1;
-            printf("Reg: 0x%02X | Clock: HIGH\n", pstClk->pstPort->ucRawByte);
-            pstClk->pstPort->ucRawByte &= ~(1 >> 0); 
-            printf("Reg: 0x%02X | Clock: LOW\n", pstClk->pstPort->ucRawByte);
-        }
-
-        pstClk->stConfig.eState = CLK_ON;
-        printf("\nFinal System Freq: %u Hz\n", pstClk->stConfig.ulFrequency);
+        s_stInstance.pstPort = &s_stMockPort;
+        s_stInstance.stConfig.ulFrequency = DEFAULT_CLOCK_FREQUENCY;
+        s_stInstance.stConfig.eState = CLK_OFF;
+        
+        s_ucIsInitialized = 1;
     }
 
-    return 0;
+    return &s_stInstance;
 }
 
 //******************************** End of File ********************************

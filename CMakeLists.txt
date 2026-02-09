@@ -3,7 +3,7 @@
 # All Rights Reserved
 #******************************************************************************
 # 
-# Project : Embedded Clock Signal Generator
+# Project : Embedded Clock Signal Generator Program
 # Summary : Build configuration for C-based string manipulation simulation.
 # Note    : Requires CMake 3.16+
 # 
@@ -31,7 +31,7 @@ include_directories(inc)
 # Define the final binary and its source dependencies
 add_executable(embedded_app 
     src/main.c
-    src/peripheral.c
+    src/clockManager.c
 )
 
 #------------------------------------------------------------------------------
