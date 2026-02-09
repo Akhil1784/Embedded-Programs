@@ -12,43 +12,63 @@
 //******************************* Include Files *******************************
 #include <stdio.h>
 #include "clockManager.h"
-
-//***************************** Global Constants ******************************
+#include "platformTypes.h"
 
 //***************************** Local Constants *******************************
+#define CLK_SIM_CYCLES      (4U)
+#define CLK_PIN_HIGH        (1U)
+#define CLK_PIN_LOW         (0U)
+#define CLK_MASK            (1U << 0)
 
-//***************************** Global Variables ******************************
+//*********************** Local Function Prototypes ***************************
+static bool RunClockSimulation(void);
 
-//***************************** Local Variables *******************************
+//******************************.FUNCTION_HEADER.******************************
+//Purpose : Executes the clock toggling simulation.
+//Inputs  : None
+//Outputs : Toggles the ucClkPin bit-field and updates ucRawByte.
+//Return  : bool - TRUE if simulation ran, FALSE if manager instance is NULL.
+//*****************************************************************************
+static bool RunClockSimulation(void)
+{
+    CLOCK_MANAGER* pstClk      = ClockManagerGet();
+    uint8          ucIdx       = 0;
+    bool           blIsSuccess = FALSE;
 
-//***************************** Type Definitions ******************************
+ if (NULL != pstClk)
+    {
+        pstClk->pstPort->stPins.ucClkPin = CLK_PIN_LOW; 
+        printf("Starting Clock Signal Simulation...\n");
+
+        for (ucIdx = 0; ucIdx < CLK_SIM_CYCLES; ucIdx++)
+        {
+            pstClk->pstPort->stPins.ucClkPin = CLK_PIN_HIGH;
+            printf("Reg: 0x%02X | Clock: HIGH\n", pstClk->pstPort->ucRawByte);
+            pstClk->pstPort->ucRawByte &= ~CLK_MASK; 
+            printf("Reg: 0x%02X | Clock: LOW\n", pstClk->pstPort->ucRawByte);
+        }
+        pstClk->stConfig.eState = CLOCK_STATE_ON; 
+        printf("\nFinal System Freq: %lu Hz\n", pstClk->stConfig.ulFrequency);    
+        blIsSuccess = TRUE;
+    }
+    return blIsSuccess;
+}
 
 //******************************.FUNCTION_HEADER.******************************
 //Purpose : Main entry point for the clock simulation application.
 //Inputs  : None
-//Outputs : Updates the GPIO register pins and the clock manager state.
+//Outputs : Displays simulation progress to console.
 //Return  : int - 0 on successful execution.
 //*****************************************************************************
 int main(void)
 {
-    CLOCK_MANAGER* pstClk = GetClockManager();
-    uint8          ucIdx  = 0;
-
-    if (NULL != pstClk)
+    if (TRUE == RunClockSimulation())
     {
-        pstClk->pstPort->stPins.ucClkPin! = (1<<1);
-        printf("Starting Clock Signal Simulation...\n");
-
-        for (ucIdx = 0; ucIdx < 4; ucIdx++)
-        {
-            pstClk->pstPort->stPins.ucClkPin = 1;
-            printf("Reg: 0x%02X | Clock: HIGH\n", pstClk->pstPort->ucRawByte);
-            pstClk->pstPort->ucRawByte &= ~(1 >> 0); 
-            printf("Reg: 0x%02X | Clock: LOW\n", pstClk->pstPort->ucRawByte);
-        }
-
-        pstClk->stConfig.eState = CLK_ON;
-        printf("\nFinal System Freq: %u Hz\n", pstClk->stConfig.ulFrequency);
+        printf("Simulation status: SUCCESS\n");
+    }
+    else
+    {
+        printf("Simulation status: FAILURE (Instance not found)\n");
     }
 
     return 0;

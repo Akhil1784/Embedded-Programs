@@ -25,8 +25,8 @@
 
 typedef enum 
 { 
-    CLK_OFF = 0, 
-    CLK_ON  = 1 
+    CLOCK_STATE_OFF = 0, 
+    CLOCK_STATE_ON  = 1 
 } CLOCK_STATE;
 
 typedef union 
@@ -53,7 +53,7 @@ typedef struct
 
 //**************************** Forward Declarations ***************************
 
-CLOCK_MANAGER* GetClockManager(void);
+CLOCK_MANAGER* ClockManagerGet(void);
 
 #endif /* CLOCK_MANAGER_H */
 //******************************** End of File ********************************

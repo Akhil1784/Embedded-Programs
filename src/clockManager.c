@@ -30,7 +30,7 @@ static GPIO_REG s_stMockPort = { .ucRawByte = 0x00 };
 //Outputs : Initializes the static clock manager instance on first call.
 //Return  : CLOCK_MANAGER* - Pointer to the persistent Clock Manager.
 //*****************************************************************************
-CLOCK_MANAGER* GetClockManager(void)
+CLOCK_MANAGER* ClockManagerGet(void)
 {
     static CLOCK_MANAGER s_stInstance;
     static uint8         s_ucIsInitialized = 0;
@@ -39,7 +39,7 @@ CLOCK_MANAGER* GetClockManager(void)
     {
         s_stInstance.pstPort = &s_stMockPort;
         s_stInstance.stConfig.ulFrequency = DEFAULT_CLOCK_FREQUENCY;
-        s_stInstance.stConfig.eState = CLK_OFF;
+        s_stInstance.stConfig.eState = CLOCK_STATE_OFF;
         
         s_ucIsInitialized = 1;
     }
