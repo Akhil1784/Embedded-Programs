@@ -31,7 +31,7 @@ include_directories(inc)
 # Define the final binary and its source dependencies
 add_executable(embedded_app 
     src/main.c
-    src/deviceConfig.c
+    src/singleton.c
 )
 
 #------------------------------------------------------------------------------

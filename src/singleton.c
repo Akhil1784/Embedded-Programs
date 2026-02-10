@@ -10,8 +10,8 @@
 //*****************************************************************************
 
 //******************************* Include Files *******************************
-#include <stdio.h>
-#include "deviceConfig.h"
+#include "singleton.h"
+#include <stdlib.h>
 
 //***************************** Global Constants ******************************
 
@@ -20,8 +20,6 @@
 //***************************** Global Variables ******************************
 
 //***************************** Local Variables *******************************
-static DEVICE_CONFIG stDeviceInstance;
-static uint8 ucIsInitialized = FALSE;
 
 //***************************** Type Definitions ******************************
 
@@ -29,20 +27,19 @@ static uint8 ucIsInitialized = FALSE;
 // Purpose : Provides a global access point to the singleton configuration 
 //           instance and ensures it is initialized exactly once.
 // Inputs  : None
-// Outputs : Initialized internal static structure (stDeviceInstance).
-// Return  : DEVICE_CONFIG* - Pointer to the single persistent device instance.
+// Outputs : Initialized internal static structure.
+// Return  : ST_SINGLETON* - Pointer to the single persistent instance.
 //*****************************************************************************
-DEVICE_CONFIG* DeviceConfig_GetInstance(void) 
-{
-    if (FALSE == ucIsInitialized) 
-    {
-        stDeviceInstance.lData     = 42;
-        stDeviceInstance.plDataPtr = &stDeviceInstance.lData;
-        ucIsInitialized = TRUE;     
-        printf("--- Singleton Instance Initialized ---\n");
+ST_SINGLETON* SingletonGetInstance(void) {
+    static ST_SINGLETON* gpstSingletonInstance = NULL;
+
+    if (gpstSingletonInstance == NULL) {
+        gpstSingletonInstance = (ST_SINGLETON*)malloc(sizeof(ST_SINGLETON));
+        gpstSingletonInstance->lValue = 0; 
     }
     
-    return &stDeviceInstance;
+    return gpstSingletonInstance;
 }
 
 //EOF
+

@@ -3,14 +3,14 @@
 //  All Rights Reserved
 //*****************************************************************************
 // 
-// File    : deviceConfig.h
+// File    : singleton.h
 // Summary : Singleton logic for device configuration management.
 // Note    : Standardized for Trenser Coding Standard V1.0.
 // 
 //*****************************************************************************
 
-#ifndef DEVICE_CONFIG_H
-#define DEVICE_CONFIG_H
+#ifndef SINGLETON_H
+#define SINGLETON_H
 
 //******************************* Include Files *******************************
 #include "platformTypes.h"
@@ -26,11 +26,10 @@
 //***************************** Type Definitions ******************************
 typedef struct 
 {
-    int32  lData;      
-    int32* plDataPtr;  
-} DEVICE_CONFIG;
+    int32 lValue;
+} ST_SINGLETON;
 
 //**************************** Forward Declarations ***************************
-DEVICE_CONFIG* DeviceConfig_GetInstance(void);
+ST_SINGLETON* SingletonGetInstance(void);
 
-#endif /* DEVICE_CONFIG_H */
+#endif /* SINGLETON_H */

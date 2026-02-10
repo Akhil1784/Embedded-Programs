@@ -10,18 +10,17 @@
 //*****************************************************************************
 
 //******************************* Include Files *******************************
+#include "singleton.h"
 #include <stdio.h>
-#include "deviceConfig.h"
 
 //***************************** Global Constants ******************************
 
 //***************************** Local Constants *******************************
+#define DEFAULT_VALUE       (500U)
 
 //***************************** Global Variables ******************************
 
 //***************************** Local Variables *******************************
-static DEVICE_CONFIG stDeviceInstance;
-static uint8 ucIsInitialized = FALSE;
 
 //***************************** Type Definitions ******************************
 
@@ -33,18 +32,18 @@ static uint8 ucIsInitialized = FALSE;
 //*****************************************************************************
 int main(void) 
 {
-    DEVICE_CONFIG *pstObjA = NULL;
-    DEVICE_CONFIG *pstObjB = NULL;
-    pstObjA = DeviceConfig_GetInstance();
-    pstObjB = DeviceConfig_GetInstance();
-    
-    if ((NULL != pstObjA) && (NULL != pstObjB))
+    ST_SINGLETON* pstSingleton = SingletonGetInstance();
+    if (NULL != pstSingleton)
     {
-        pstObjB->lData = 100;
-        printf("Object A Data (reflected): %ld\n", *(pstObjA->plDataPtr));
-        printf("Address A: %p | Address B: %p\n", (void*)pstObjA, (void*)pstObjB);
+      pstSingleton->lValue = (int32)DEFAULT_VALUE;    
+      printf("Singleton Instance Address: %p\n", (void*)pstSingleton);
+      printf("Stored Value: %ld\n", (int32)pstSingleton->lValue);
     }
-
+    else
+    {
+        printf("Error: Failed to initialize Singleton instance.\n");
+    }
+    
     return 0;
 }
 
