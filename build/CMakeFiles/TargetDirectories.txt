@@ -1,3 +1,0 @@
-/home/akhilaa004/Embedded-Program/build/CMakeFiles/embedded_app.dir
-/home/akhilaa004/Embedded-Program/build/CMakeFiles/edit_cache.dir
-/home/akhilaa004/Embedded-Program/build/CMakeFiles/rebuild_cache.dir
