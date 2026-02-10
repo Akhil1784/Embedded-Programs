@@ -16,97 +16,115 @@
 //***************************** Global Constants ******************************
 
 //***************************** Local Constants *******************************
-#define TOTAL_BITS          (32)
-#define BITS_PER_BYTE       (8)
-#define START_BIT_INDEX     (TOTAL_BITS - 1)
+#define TOTAL_BITS    (32)
+#define BITS_PER_BYTE (8)
 
 //***************************** Global Variables ******************************
 
 //***************************** Local Variables *******************************
 
 //***************************** Type Definitions ******************************
-static void PrintBinary(uint32 ulValue);
+static bool PrintBinary(uint32 ulValue);
 static bool RunBinaryManipulation(void);
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Prints the 32-bit binary representation of a given value.
-//Inputs  : ulValue - The 32-bit unsigned integer to be printed.
-//Outputs : Binary string with spaces every 8 bits to standard output.
-//Return  : None
+// Purpose  : Prints the 32-bit binary representation of a given value with
+//            byte-wise grouping for readability.
+// Inputs   : ulValue - The 32-bit unsigned integer to be printed.
+// Outputs  : None.
+// Return   : bool - TRUE if printing completed successfully, else FALSE.
 //*****************************************************************************
-static void PrintBinary(uint32 ulValue)
+static bool PrintBinary(uint32 ulValue)
 {
     int32 lIdx = 0;
-
-    for (lIdx = START_BIT_INDEX; lIdx >= 0; lIdx--)
+    bool  blStatus = TRUE;
+    for (lIdx = (TOTAL_BITS - 1); lIdx >= 0; lIdx--)
     {
-        /* Check bit at current index and print character */
         printf("%c", (ulValue & (1U << lIdx)) ? '1' : '0');
-
-        /* Print space after every 8 bits, but not after the last bit (0) */
-        if ((0 == (lIdx % BITS_PER_BYTE)) && (0 != lIdx))
+        if ((0 == (lIdx % BITS_PER_BYTE)) && (0 != lIdx)) 
         {
             printf(" ");
         }
     }
+    
     printf("\n");
+
+    return blStatus;
 }
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Performs sequential bitwise SET, CLEAR, and TOGGLE operations.
-//Inputs  : None (Takes decimal input from user).
-//Outputs : Displays binary state after each manipulation.
-//Return  : bool - TRUE if input was valid and operations completed.
+// Purpose  : Handles user input and performs smart bitwise operations 
+//            (SET if 0, CLEAR if 1, and TOGGLE).
+// Inputs   : None.
+// Outputs  : None.
+// Return   : bool - TRUE if input is valid and manipulation succeeds, 
+//                   else FALSE.
 //*****************************************************************************
 static bool RunBinaryManipulation(void)
 {
-    uint32 ulUserValue = 0;
-    bool   blIsSuccess = FALSE;
+    uint32 ulData   = 0;
+    uint32 ulMask   = 0;
+    bool   blStatus = FALSE;
 
     printf("Enter a decimal number: ");
-    
-    if (1 == scanf("%u", &ulUserValue))
+    if (1 == scanf("%u", &ulData))
     {
         printf("\nOriginal Binary   : ");
-        PrintBinary(ulUserValue);
-
-        ulUserValue |= (1U << 0);
-        printf("After SET Bit 0   : ");
-        PrintBinary(ulUserValue);
-
-        ulUserValue &= ~(1U << 3);
-        printf("After CLEAR Bit 3 : ");
-        PrintBinary(ulUserValue);
-
-        ulUserValue ^= (1U << 7);
-        printf("After TOGGLE Bit 7: ");
-        PrintBinary(ulUserValue);
-
-        blIsSuccess = TRUE;
+        (void)PrintBinary(ulData);
+        ulMask = (1U << 0);
+        if (0 == (ulData & ulMask))
+        {
+            ulData |= ulMask; 
+            printf("Action: SET to 1   (Bit 0 was 0)\n");
+        }
+        else
+        {
+            ulData &= ~ulMask; 
+            printf("Action: CLEAR to 0 (Bit 0 was 1)\n");
+        }
+        (void)PrintBinary(ulData);
+        ulMask = (1U << 3);
+        if (0 == (ulData & ulMask))
+        {
+            ulData ^= ulMask; 
+            printf("Action: TOGGLE to 1 (Bit 3 was 0)\n");
+        }
+        else
+        {
+            ulData ^= ulMask; 
+            printf("Action: TOGGLE to 0 (Bit 3 was 1)\n");
+        }
+        (void)PrintBinary(ulData);
+        blStatus = TRUE;
     }
     else
     {
-        printf("Error: Invalid Input.\n");
+        printf("Error: Invalid decimal input.\n");
     }
-    
-    return blIsSuccess;
+
+    return blStatus;
 }
 
 //******************************.FUNCTION_HEADER.******************************
-//Purpose : Main entry point. Monitors conversion success status.
-//Inputs  : None
-//Outputs : Prints conversion results directly to standard output.
-//Return  : int - 0 on successful execution.
+// Purpose  : Main entry point. Executes the binary manipulation logic and
+//            monitors the execution success status.
+// Inputs   : None.
+// Outputs  : None.
+// Return   : int - 0 on successful execution, non-zero on failure.
 //*****************************************************************************
 int main(void)
 {
+    int iRetVal = 0;
     if (TRUE == RunBinaryManipulation())
     {
-        printf("\nManipulation Complete.\n");
+        printf("\nBinary manipulation completed successfully.\n");
+        iRetVal = 0;
     }
     else
     {
-        printf("\nManipulation Failed.\n"); 
+        printf("\nBinary manipulation failed.\n");
+        iRetVal = 1;
     }
-    return 0;
+
+    return iRetVal;
 }
