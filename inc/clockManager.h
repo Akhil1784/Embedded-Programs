@@ -44,7 +44,7 @@ typedef struct
 {
     struct 
     {
-        uint32      ulFrequency; 
+        uint32 ulFrequency; 
         CLOCK_STATE eState;      
     } stConfig; 
     
