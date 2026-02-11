@@ -23,6 +23,34 @@
 //***************************** Local Variables *******************************
 
 //***************************** Type Definitions ******************************
+static bool ExecuteSingleton(void);
+
+//******************************.FUNCTION_HEADER.******************************
+// Purpose  : Executes the Singleton demonstration logic.
+// Inputs   : None.
+// Outputs  : Prints memory address and stored value to console.
+// Return   : bool - TRUE if instance was retrieved successfully, else FALSE.
+//*****************************************************************************
+static bool ExecuteSingletonDemo(void)
+{
+    bool blStatus = FALSE;
+    ST_SINGLETON* pstSingleton = SingletonGetInstance();
+
+
+    if(NULL != pstSingleton)
+    {
+        pstSingleton->lValue = (int32)DEFAULT_VALUE; 
+        printf("Singleton Instance Address: %p\n", (void*)pstSingleton);
+        printf("Stored Value: %ld\n", (long int)pstSingleton->lValue);    
+        blStatus = TRUE;
+    }
+    else
+    {
+        printf("Error: Failed to initialize Singleton instance.\n");
+    }
+
+    return blStatus;
+}
 
 //******************************.FUNCTION_HEADER.******************************
 // Purpose : Main execution loop to demonstrate Singleton behavior.
@@ -32,20 +60,18 @@
 //*****************************************************************************
 int main(void) 
 {
-    ST_SINGLETON* pstSingleton = SingletonGetInstance();
-    
-    if(NULL != pstSingleton)
+    int iRetVal = 0;
+
+    if(TRUE == ExecuteSingletonDemo())
     {
-      pstSingleton->lValue = (int32)DEFAULT_VALUE;    
-      printf("Singleton Instance Address: %p\n", (void*)pstSingleton);
-      printf("Stored Value: %ld\n", (int32)pstSingleton->lValue);
+       iRetVal = 0;
     }
     else
     {
-      printf("Error: Failed to initialize Singleton instance.\n");
+       iRetVal = 1;
     }
     
-    return 0;
+    return iRetVal;
 }
 
 //EOF
