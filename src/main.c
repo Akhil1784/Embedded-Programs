@@ -1,4 +1,4 @@
-//**************************** String Sort ************************************
+//**************************** 2D Array ***************************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -112,7 +112,7 @@ int main(void)
 {
     int iRetVal = STR_NO_VALUE;
 
-    if ( TRUE != RunStringDemo() )
+    if( TRUE != RunStringDemo() )
     {
         printf("Error: Input processing failed.\n");
         iRetVal = 1; 
