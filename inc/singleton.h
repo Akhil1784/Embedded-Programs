@@ -26,7 +26,7 @@
 //***************************** Type Definitions ******************************
 typedef struct 
 {
-    int32 lValue;
+  int32 lValue;
 } ST_SINGLETON;
 
 //**************************** Forward Declarations ***************************

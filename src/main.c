@@ -33,7 +33,8 @@
 int main(void) 
 {
     ST_SINGLETON* pstSingleton = SingletonGetInstance();
-    if (NULL != pstSingleton)
+    
+    if(NULL != pstSingleton)
     {
       pstSingleton->lValue = (int32)DEFAULT_VALUE;    
       printf("Singleton Instance Address: %p\n", (void*)pstSingleton);
@@ -41,7 +42,7 @@ int main(void)
     }
     else
     {
-        printf("Error: Failed to initialize Singleton instance.\n");
+      printf("Error: Failed to initialize Singleton instance.\n");
     }
     
     return 0;
