@@ -1,4 +1,4 @@
-//**************************** 2D Array ***************************************
+//**************************** Health Monitor *********************************
 //  Copyright (c) 2026 Trenser
 //  All Rights Reserved
 //*****************************************************************************
@@ -21,15 +21,15 @@
 //***************************** Global Variables ******************************
 
 //***************************** Type Definitions ******************************
-typedef unsigned int        uint32;
-typedef unsigned char       uint8;
-typedef signed int          int32;
-
-typedef enum 
-{
-    FALSE = 0,
-    TRUE  = 1
-} bool;
+typedef unsigned char  uint8;   
+typedef unsigned short uint16; 
+typedef unsigned long  uint32;  
+typedef signed char    int8;    
+typedef signed short   int16;   
+typedef signed long    int32;   
+typedef uint8 bool;
+#define TRUE  ((bool)1)
+#define FALSE ((bool)0)
 
 //**************************** Forward Declarations ***************************
 
