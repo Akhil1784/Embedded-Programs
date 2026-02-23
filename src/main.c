@@ -30,11 +30,11 @@ static uint8 ucHistoryIndex = 0U;
 
 //***************************** Global Variables ******************************
 
-//***************************** Type Definitions ******************************
-
 //***************************** Local Function ********************************
 static bool AddReading(uint32 ulValue);
 static float GetAverage(uint8 ucCount);
+
+//***************************** Type Definitions ******************************
 
 //******************************.FUNCTION_HEADER.******************************
 // Purpose  : Adds a new sensor reading to the internal history buffer while 
