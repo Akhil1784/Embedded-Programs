@@ -21,8 +21,6 @@
 #define SENSOR_VAL_REPEATED  (50U)
 #define AVG_SAMPLE_COUNT     (2U)
 #define LOOP_LIMIT_EXTENDED  (5U)
-#define TRUE                 ((bool)1)
-#define FALSE                ((bool)0)
 
 //***************************** Local Variables *******************************
 static int16 spSensorReading[BUFFER_SIZE] = {0}; 
