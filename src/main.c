@@ -24,10 +24,6 @@
 #define TRUE                 ((bool)1)
 #define FALSE                ((bool)0)
 
-//***************************** Local Function ********************************
-static bool AddReading(uint32 ulValue);
-static float GetAverage(uint8 ucCount);
-
 //***************************** Local Variables *******************************
 static int16 spSensorReading[BUFFER_SIZE] = {0}; 
 static uint8 ucHistoryIndex = 0U;
@@ -35,6 +31,10 @@ static uint8 ucHistoryIndex = 0U;
 //***************************** Global Variables ******************************
 
 //***************************** Type Definitions ******************************
+
+//***************************** Local Function ********************************
+static bool AddReading(uint32 ulValue);
+static float GetAverage(uint8 ucCount);
 
 //******************************.FUNCTION_HEADER.******************************
 // Purpose  : Adds a new sensor reading to the internal history buffer while 
