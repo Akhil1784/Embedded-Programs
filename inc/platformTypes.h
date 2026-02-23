@@ -27,9 +27,6 @@ typedef unsigned long  uint32;
 typedef signed char    int8;    
 typedef signed short   int16;   
 typedef signed long    int32;   
-typedef uint8 bool;
-#define TRUE  ((bool)1)
-#define FALSE ((bool)0)
 
 //**************************** Forward Declarations ***************************
 
