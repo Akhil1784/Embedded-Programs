@@ -3,9 +3,9 @@
 # All Rights Reserved
 #******************************************************************************
 # 
-# Project : Embedded String Program
-# Summary : Build configuration for C-based string manipulation simulation.
-# Note    : Requires CMake 3.16+
+# Project : String Program
+# Summary : Build configuration for String Program Configuration.
+# Note    : Implements private static instance pattern with pointer access.
 # 
 #******************************************************************************
 
@@ -30,9 +30,8 @@ include_directories(inc)
 #------------------------------------------------------------------------------
 # Define the final binary and its source dependencies
 add_executable(embedded_app 
-    src/Main.c
-    src/StringProcessor.c
-    src/StringApp.c
+    src/main.c
+    src/stringProcessor.c
 )
 
 #------------------------------------------------------------------------------
